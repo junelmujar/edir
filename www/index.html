@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eDirectory</title>
+    
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=2, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+    <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/font-awesome-4.1.0/css/font-awesome.min.css">
+    
+    <style>
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="app-page" data-page="home">
+
+        <div class="app-topbar">
+        
+            <div class="app-title">eDirectory</div>
+            <div class="app-button right about"><i class="fa fa-info"></i></div>
+        
+        </div>
+
+        <div class="app-content">
+            
+            <div class="app-section">
+               <input type="search" id="home-search-text" class="app-input" placeholder="Search contacts..." />
+               <div class="app-button green home" id="home-search-button">Go</div>
+            </div>
+
+            <ul class="app-list companies">
+                <label>Subsidiaries</label>
+                <li class="app-button">
+                    <strong>TTI</strong> <i class="fa fa-angle-right pull-right"></i>
+                    <div><small>Trends & Technologies Inc.</small></div>
+                </li>
+                <li class="app-button">
+                    <strong>TTHI</strong> <i class="fa fa-angle-right pull-right"></i>
+                    <div><small>Trends & Technologies Holdings Inc.</small></div>
+                </li>
+                <li class="app-button">
+                    <strong>TNET</strong> <i class="fa fa-angle-right pull-right"></i>
+                    <div><small>Trends.NET Training Center</small></div>
+                </li>
+                <li class="app-button">
+                    <strong>LSI</strong> <i class="fa fa-angle-right pull-right"></i>
+                    <div><small>Logic Solutions Inc.</small></div>
+                </li>
+                <li class="app-button">TSI <i class="fa fa-angle-right pull-right"></i></li>                  
+                <li class="app-button">TTSMI <i class="fa fa-angle-right pull-right"></i></li>                  
+                <li class="app-button">VIZMIN <i class="fa fa-angle-right pull-right"></i></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="app-page" data-page="app-search">
+
+        <div class="app-topbar">
+        
+            <div class="app-button left" data-back></div>
+            <div class="app-title">eDir Search</div>
+            <div class="app-button right about"><i class="fa fa-info"></i></div>
+        
+        </div>
+
+        <div class="app-content">
+
+            <div class="app-section">
+               <input type="search" class="app-input" placeholder="Search subsidiary..." id="search-text" />
+               <div class="app-button green home" id="search-button">Go</div>
+            </div>
+
+            <ul class="app-list" id="employee-list">
+                <label>SEARCH ALL</label>
+            </ul>                
+
+        </div>
+
+    </div>
+
+
+
+    <div class="app-page" data-page="app-list-by-company">
+
+        <div class="app-topbar">
+        
+            <div class="app-button left" data-back></div>
+            <div class="app-title">eDirectory</div>
+            <div class="app-button right about"><i class="fa fa-info"></i></div>
+        
+        </div>
+
+        <div class="app-content">
+
+            <div class="app-section">
+               <input type="search" class="app-input" placeholder="Search subsidiary..." id="list-company-search-field" />
+               <div class="app-button green home" id="list-company-search-btn">Go</div>
+            </div>
+
+            <ul class="app-list" id="employee-list">
+                <label>TTHI</label>
+            </ul>                
+
+        </div>
+
+    </div>
+
+
+
+    <div class="app-page" data-page="app-about">
+        <div class="app-topbar">
+            <div class="app-button left" data-back></div>
+            <div class="app-title">About</div>
+        </div>    
+        <div class="app-content">
+            <div class="app-section app-info">
+                <strong>eDirectory</strong> is a companion app
+                for P2iS. It acts as a contact
+                directory for all users enrolled
+                under P2iS &copy;
+            </div>
+            <div class="app-section app-info">
+                Made with love using App.js, PhoneGap, jQuery
+            </div>
+            <div class="app-section">
+                <div class="app-button green home">Go Back</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Libraries -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sifter.min.js"></script>
+    
+
+    <!-- AppJs Library -->
+    <script src="js/app.min.js"></script>
+
+    <script>
+
+        // Home
+        App.controller('home', function (page) {
+
+            var about = page.querySelector('.about');
+            var company_trigger = $(page).find('.companies > li');
+
+            about.addEventListener('click', function() {
+                App.load('app-about');
+            });            
+
+            company_trigger.on('click', function() {
+                $.get('data.json').success(function(data) {
+                    App.load('app-list-by-company', data);
+                })                    
+            });          
+
+            $(page).find('#home-search-button').on('click', function() {
+                var keyword;
+                keyword = $(page).find('#home-search-text').val();
+                $.get('data.json').success(function(data) {
+                    var _data;
+                    _data = {
+                        'keyword': keyword,
+                        'result': data
+                    }
+                    App.load('app-search', _data);
+                }) 
+            });
+
+        });
+
+
+        // Search 
+        App.controller('app-search', function (page, data) {
+            
+            function _search(keyword) {
+                var _data = new Sifter(data.result);      
+                
+                $(page).find('#search-text').val(keyword);
+
+                var results = _data.search(keyword, {
+                    fields: ['name', 'email'],
+                    sort: [{field: 'name', direction: 'asc'}],
+                });        
+
+                $(page).find('#employee-list li').remove();
+                results.items.map(function(result) {
+                    $(page).find('#employee-list').append('<li>' + 
+                        '<div class="name"><i class="fa fa-user"></i> '+ data.result[result.id].name + '</div>' + 
+                        '<div class="email"><a href="mailto:' + data.result[result.id].email + '">' + 
+                            data.result[result.id].email + 
+                        '</a></div>' +
+                        '<div class="mobile">' + data.result[result.id].mobile + '</div>' + 
+                        '</li>');
+                });              
+            }
+
+            _search(data.keyword);
+
+            $(page).find('#search-button').on('click', function() {
+
+                _search($(page).find('#search-text').val());
+            });
+
+        });
+
+
+        // List 
+        App.controller('app-list-by-company', function (page, contacts) {
+            var _contacts = new Sifter(contacts);
+
+            contacts.map(function(contact) {
+                $(page).find('#employee-list').append('<li>' + 
+                        '<div class="name"><i class="fa fa-user"></i> '+ contact.name + '</div>' + 
+                        '<div class="email"><a href="mailto:' + contact.email + '">' + 
+                            contact.email + 
+                        '</a></div>' +
+                        '<div class="mobile">' + contact.mobile + '</div>' + 
+                        '</li>');
+            });
+
+            $(page).find('#list-company-search-btn').on('click', function() {
+                var keyword;
+                keyword = $(page).find('#list-company-search-field').val();
+
+                var results = _contacts.search(keyword, {
+                    fields: ['name', 'email'],
+                    sort: [{field: 'name', direction: 'asc'}],
+                });                
+
+                $(page).find('#employee-list li').remove();
+                results.items.map(function(result) {
+                    $(page).find('#employee-list').append('<li>' + 
+                        '<div class="name"><i class="fa fa-user"></i> '+ contacts[result.id].name + '</div>' + 
+                        '<div class="email"><a href="mailto:' + contacts[result.id].email + '">' + 
+                            contacts[result.id].email + 
+                        '</a></div>' +
+                        '<div class="mobile">' + contacts[result.id].mobile + '</div>' + 
+                        '</li>');
+                });
+
+            });
+        });
+
+
+        
+        // About
+        App.controller('app-about', function (page) {
+            var home = page.querySelector('.home');
+            home.addEventListener('click', function() {
+                App.load('home');
+            });
+        });
+
+        
+
+        // Run our app
+        try {
+            App.restore();
+        } catch (err) {
+            App.load('home');
+        }
+
+    </script>
+
+  </body>
+</html>

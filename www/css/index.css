@@ -1,0 +1,115 @@
+body {
+	font-family: 'Open Sans', sans-serif !important;
+	font-size: 14pt !important;
+}
+
+.app-button.no-container {
+	margin: 16px;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.app-section-title {
+    padding: 15px;
+    margin: 0;
+    border-bottom: 1px solid orange;
+    border-radius: 0 !important;
+}
+
+.app-list > label {
+	background: #dbdee5 !important;
+	color: #969ba9;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+	border-top: 1px solid rgba(0, 0, 0, 0.15);
+	box-shadow: inset 0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 5px 15px;
+	height: auto;
+}
+
+.app-list li {
+	height: auto;
+	border: 0px;
+	line-height: 28px !important;
+	padding: 15px;
+	box-shadow: none !important;
+	border-bottom: 1px solid #ddd !important;
+}
+
+.app-list li:nth-child(even),
+.app-list li:nth-child(odd) { 
+	/*border-bottom: 1px solid #ddd;*/
+	border: 0;
+}
+
+.app-list li:nth-child(odd) { 
+	background: #eee;
+}
+
+
+.app-list li.app-button {
+	border-radius: 0px !important;
+	height: auto;
+	overflow: hidden;
+}
+
+.result li {
+	height: auto !important;
+	padding: 10px 0 !important;
+	overflow: hidden !important;
+}
+
+.result li img {
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+}
+
+.result li .movie-detail {
+	display: inline-block;
+}
+
+.result li .movie-detail span {
+	display: block;
+}
+
+.result li .movie-detail span.movie-title {
+	font-weight: bold;
+	word-wrap: break-word;
+}
+
+.app-button,
+.app-section {
+	border-radius: 3px !important;
+
+}
+
+
+.app-section.app-info {
+	padding: 25px;
+}
+
+
+.name {
+	font-weight: bold;
+}
+.mobile,
+.email {
+	font-size: 14px;
+}
+
+.pull-right {
+	display: inline-block;
+	float: right;
+}
+
+
+.companies li.app-button strong {
+	color: #333 !important;
+}
+
+.companies li.app-button small {
+	font-size: 14px;
+	color: #888;
+}
